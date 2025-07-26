@@ -1,7 +1,7 @@
 const Group = require('../models/Group');
 
 // Create a new group
-export const createGroup = async (req, res) => {
+const createGroup = async (req, res) => {
   try {
     const group = new Group(req.body);
     await group.save();
@@ -12,7 +12,7 @@ export const createGroup = async (req, res) => {
 };
 
 // Get all groups
-export const getGroups = async (req, res) => {
+const getGroups = async (req, res) => {
   try {
     const groups = await Group.find();
     res.status(200).json(groups);
@@ -22,7 +22,7 @@ export const getGroups = async (req, res) => {
 };
 
 // Get single group
-export const getGroupById = async (req, res) => {
+const getGroupById = async (req, res) => {
   try {
     const group = await Group.findById(req.params.id);
     if (!group) return res.status(404).json({ error: 'Group not found' });
@@ -33,7 +33,7 @@ export const getGroupById = async (req, res) => {
 };
 
 // Update group
-export const updateGroup = async (req, res) => {
+const updateGroup = async (req, res) => {
   try {
     const groupId = req.params.id;
     const updates = req.body;
@@ -55,7 +55,7 @@ export const updateGroup = async (req, res) => {
 };
 
 // Delete group
-export const deleteGroup = async (req, res) => {
+const deleteGroup = async (req, res) => {
   try {
     const groupId = req.params.id;
 
@@ -70,4 +70,12 @@ export const deleteGroup = async (req, res) => {
     console.error('Error deleting group:', error);
     res.status(500).json({ message: 'Server error while deleting group' });
   }
+};
+
+module.exports = {
+  createGroup,
+  getGroups,
+  getGroupById,
+  updateGroup,
+  deleteGroup,
 };

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const groupSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -13,4 +13,4 @@ const groupSchema = new mongoose.Schema({
   status: { type: String, enum: ['active', 'inactive'], default: 'active' },
 }, { timestamps: true });
 
-export default mongoose.model('Group', groupSchema);
+module.exports = mongoose.model('Group', groupSchema);
