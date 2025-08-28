@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import Student from '../models/student.js';
-import Group from '../models/group.js';
+import Group from '../models/Group.js';
 
 export async function createStudent (req, res) {
   try {
