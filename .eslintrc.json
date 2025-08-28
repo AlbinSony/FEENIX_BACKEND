@@ -1,0 +1,11 @@
+{
+  "env": { "es2023": true, "node": true },
+  "extends": ["standard"],
+  "parserOptions": { "sourceType": "module" },
+  "rules": {
+    "import/extensions": ["error", "always", { "ignorePackages": true }],
+    "no-var": "error",
+    "prefer-const": "error",
+    "semi": ["error", "always"]
+  }
+}

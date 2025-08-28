@@ -1,16 +1,24 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import { PAYMENT_PLAN_VALUES, STATUS_VALUES, PAYMENT_PLANS } from '../constants/index.js';
 
-const groupSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  description: String,
-  fee: { type: Number, required: true },
-  frequency: { type: String, enum: ['Monthly', 'One-Time'], default: 'Monthly' },
-  students: { type: Number, default: 0 },
-  collected: { type: Number, default: 0 },
-  dues: { type: Number, default: 0 },
-  lastPaymentDate: { type: Date },
-  nextDueDate: { type: Date },
-  status: { type: String, enum: ['active', 'inactive'], default: 'active' },
-}, { timestamps: true });
+const groupSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true, trim: true },
+    description: String,
+    fee: { type: Number, required: true },
+    frequency: {
+      type: String,
+      enum: PAYMENT_PLAN_VALUES,
+      default: PAYMENT_PLANS.MONTHLY
+    },
+    students: { type: Number, default: 0 },
+    collected: { type: Number, default: 0 },
+    dues: { type: Number, default: 0 },
+    lastPaymentDate: { type: Date },
+    nextDueDate: { type: Date },
+    status: { type: String, enum: STATUS_VALUES, default: 'active' }
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model('Group', groupSchema);
+export default mongoose.model('Group', groupSchema);

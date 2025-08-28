@@ -1,28 +1,29 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const groupRoutes = require("./routes/groupRoutes");
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import { MONGO_URI, PORT } from './config/env.js';
+import authRoutes from './routes/authRoutes.js';
+import groupRoutes from './routes/groupRoutes.js';
+import studentRoutes from './routes/studentRoutes.js';
 
-dotenv.config();
 const app = express();
 
-// Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Routes
-const authRoutes = require("./routes/authRoutes");
-app.use("/api/auth", authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/groups', groupRoutes);
+app.use('/api/students', studentRoutes);
 
-// MongoDB Connection
+// MongoDB Connection and server start
 mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log(err));
-
-// Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  .connect(MONGO_URI)
+  .then(() => {
+    console.log('MongoDB connected');
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  })
+  .catch((err) => {
+    console.error('Mongo connection error:', err);
+    process.exit(1);
+  });
