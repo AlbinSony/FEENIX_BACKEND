@@ -6,6 +6,8 @@ import { MONGO_URI, PORT } from './config/env.js';
 import authRoutes from './routes/authRoutes.js';
 import groupRoutes from './routes/groupRoutes.js';
 import studentRoutes from './routes/studentRoutes.js';
+import feePlanRoutes from "./routes/feePlanRoutes.js";
+import paymentRequestRoutes from "./routes/paymentRequestRoutes.js";
 
 const app = express();
 
@@ -18,6 +20,8 @@ app.use(methodOverride('_method'));
 app.use('/api/auth', authRoutes);
 app.use('/api/groups', groupRoutes);
 app.use('/api/students', studentRoutes);
+app.use("/api/fee-plans", feePlanRoutes);
+app.use("/api/payment-requests", paymentRequestRoutes);
 
 // MongoDB Connection and server start
 mongoose
